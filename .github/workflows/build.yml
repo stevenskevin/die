@@ -10,7 +10,7 @@ jobs:
         with:
           run: |
             apk add make
-            make draft
+            make draft SHELL='sh -x'
       - name: Upload PDF
         uses: actions/upload-artifact@v3
         with:
