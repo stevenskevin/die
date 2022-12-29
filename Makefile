@@ -49,7 +49,7 @@ data/%.pdf: data/%.py ## generate plot
 	python3 $^
 
 draft: $(DEPS) ## generate pdf with a draft info
-	echo -e '\\newcommand*{\\\\DRAFT}{}' >> rev.tex
+	echo -e '\\newcommand*{\\DRAFT}{}' >> rev.tex
 	@TEXINPUTS="sty:" bin/latexrun $(LTEX) $(BTEX) $(MAIN)
 
 watermark: $(DEPS) ## generate pdf with a watermark
