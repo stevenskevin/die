@@ -11,7 +11,7 @@ jobs:
         with:
           run: |
             pwd
-            apk add make git
+            apk add make git fmt
             git config --global --add safe.directory $(pwd)
             make draft SHELL='sh -x'
       - name: Upload PDF
