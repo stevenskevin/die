@@ -1,6 +1,7 @@
 on: [push]
 jobs:
   build_latex:
+    name: Build draft PDF
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -9,7 +10,7 @@ jobs:
         uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
-            apk add make
+            apk add make git
             make draft SHELL='sh -x'
       - name: Upload PDF
         uses: actions/upload-artifact@v3
