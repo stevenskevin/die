@@ -7,7 +7,6 @@ PLOT := $(patsubst %.gp,%.tex,$(wildcard data/*.gp))
 DEPS := rev.tex code/fmt.tex abstract.txt $(CODE) $(FIGS) $(ODGS) $(PLOT)
 LTEX := --latex-args="-synctex=1 -shell-escape"
 BTEX := --bibtex-args="-min-crossrefs=99"
-SHELL:= $(shell echo $$SHELL)
 
 all: $(DEPS) ## generate a pdf
 	@TEXINPUTS="sty:" bin/latexrun $(LTEX) $(BTEX) $(MAIN)
@@ -26,7 +25,7 @@ help: ## print help
 	  | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-10s\033[0m %s\n", $$1, $$2}'
 
 rev.tex: FORCE
-	@printf '\\\\gdef\\\\therev{%s}\n\\\\gdef\\\\thedate{%s}\n' \
+	@printf '\\gdef\\therev{%s}\n\\gdef\\thedate{%s}\n' \
 	   "$(shell git rev-parse --short HEAD)"            \
 	   "$(shell git log -1 --format='%ci' HEAD)" > $@
 
@@ -49,11 +48,11 @@ data/%.pdf: data/%.py ## generate plot
 	python3 $^
 
 draft: $(DEPS) ## generate pdf with a draft info
-	echo -e '\\\\newcommand*{\\\\DRAFT}{}' >> rev.tex
+	@printf '\\newcommand*{\\DRAFT}{}' >> rev.tex
 	@TEXINPUTS="sty:" bin/latexrun $(LTEX) $(BTEX) $(MAIN)
 
 watermark: $(DEPS) ## generate pdf with a watermark
-	echo -e '\\\\usepackage[firstpage]{draftwatermark}' >> rev.tex
+	@printf '\\usepackage[firstpage]{draftwatermark}' >> rev.tex
 	@TEXINPUTS="sty:" bin/latexrun $(LTEX) $(BTEX) $(MAIN)
 
 spell: ## run a spell check
