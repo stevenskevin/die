@@ -11,6 +11,7 @@ jobs:
         with:
           run: |
             pwd
+            env
             apk add make git coreutils
             git config --global --add safe.directory $(pwd)
             make draft
