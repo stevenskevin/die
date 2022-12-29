@@ -10,13 +10,11 @@ jobs:
         uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
-            pwd
-            env
             apk add make git coreutils
             git config --global --add safe.directory $(pwd)
             make draft
       - name: Upload PDF
         uses: actions/upload-artifact@v3
         with:
-          name: PDF
+          name: pdf
           path: p.pdf
