@@ -13,7 +13,7 @@ jobs:
             pwd
             apk add make git coreutils
             git config --global --add safe.directory $(pwd)
-            make draft SHELL='sh -x'
+            make draft
       - name: Upload PDF
         uses: actions/upload-artifact@v3
         with:
