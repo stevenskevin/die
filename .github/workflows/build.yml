@@ -12,7 +12,7 @@ jobs:
           run: |
             pwd
             apk add make git
-            chown -R $USER .
+            git config --global --add safe.directory $(pwd)
             make draft SHELL='sh -x'
       - name: Upload PDF
         uses: actions/upload-artifact@v3
